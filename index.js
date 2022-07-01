@@ -36,6 +36,19 @@ async function run() {
               const query = {_id: ObjectId(id) }
               const result = await itemsCollections.findOne(query)
               res.send(result)
+        })
+    app.put('/todoList/:id', async (req, res) => {
+      const id = req.params.id
+      const updateItems = req.body;
+      const filter = { _id: ObjectId(id) }
+      const options = { upsert: true }
+      const updateDoc = {
+        $set: {
+          text:updateItems.text
+        },
+      };
+      const result = await itemsCollections.updateOne(filter, updateDoc, options)
+      res.send(result)
     })
         
         
